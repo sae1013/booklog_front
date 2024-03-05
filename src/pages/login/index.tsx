@@ -10,7 +10,13 @@ export default function LoginPage() {
 
   const handleReceiveMessage = (event: MessageEvent) => {
     if (event.origin === CLIENT_SERVER) return;
-    const { user, token } = JSON.parse(event.data);
+    const { user, status, errorMessage } = JSON.parse(event.data);
+    if (parseInt(status) != 200) {
+      // TODO!: Error Popup 띄워주세요.
+      console.log(errorMessage);
+      return;
+    }
+    // TODO!: Greeting Toast message 띄워주세요.
     router.push("/");
   };
 

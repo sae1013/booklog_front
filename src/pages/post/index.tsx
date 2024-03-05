@@ -14,6 +14,7 @@ import { Editor } from "@/components/Editor";
 import { Editor as EditorType } from "@tiptap/react";
 import DropDownMenu from "@/components/DropdownMenu";
 import CtaButton from "@/components/base/CtaButton";
+import AxiosInstance from "@/utils/AxiosInstance";
 
 const PostWrite = () => {
   const editor = useEditor({
@@ -34,6 +35,12 @@ const PostWrite = () => {
     editor?.chain().focus();
   };
 
+  const submitHTML = async (html: string) => {
+    const response = await AxiosInstance.post("/post", {
+      data: html,
+    });
+  };
+
   return (
     <>
       <header className="p-10 w-full">
@@ -51,7 +58,7 @@ const PostWrite = () => {
       </main>
       <footer className="bg-gray-100 font-normal text-lg py-4 px-6 flex items-center sticky bottom-0 z-50">
         <CtaButton
-          styles="ml-auto rounded-3xl text-red-400 bg-white outline outline-neutral-300"
+          styles="ml-auto rounded-3xl text-red-500 bg-white border border-red-300 "
           onClick={() => {
             const html = editor?.getHTML();
           }}
@@ -59,9 +66,9 @@ const PostWrite = () => {
           <span>임시저장</span>
         </CtaButton>
         <CtaButton
-          styles="rounded-3xl outline outline-neutral-300"
+          styles="rounded-3xl border border-neutral-400"
           onClick={() => {
-            const html = editor?.getHTML();
+            submitHTML(editor?.getHTML() as string);
           }}
         >
           <span>게시하기</span>
