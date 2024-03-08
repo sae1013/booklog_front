@@ -22,7 +22,7 @@ const config: Config = {
     // },
     extend: {
       spacing: {
-        ...Array.from({ length: 100 }, (_, index) => index + 1).reduce(
+        ...Array.from({ length: 1000 }, (_, index) => index + 1).reduce(
           (acc, px) => {
             acc[`${px}pxr`] = pxToRem(px);
             return acc;
